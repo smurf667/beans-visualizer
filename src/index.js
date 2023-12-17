@@ -1,3 +1,4 @@
+import demoData from './demo.json';
 import * as d3 from 'd3';
 
 /**
@@ -85,6 +86,13 @@ const init = () => {
           render(lastModel);
         }
       });
+  document
+      .querySelector('#demo')
+      .addEventListener('click', () => {
+        lastModel = demoData;
+        clear();
+        render(lastModel);
+      });
 };
 
 const clear = () => {
@@ -125,8 +133,8 @@ const render = (inData) => {
       .forEach((ctxName) => {
         if (inData.contexts[ctxName].beans) {
           for (const name in inData.contexts[ctxName].beans) {
-            if (inData.contexts.application.beans.hasOwnProperty(name)) {
-              const bean = inData.contexts.application.beans[name];
+            if (inData.contexts[ctxName].beans.hasOwnProperty(name)) {
+              const bean = inData.contexts[ctxName].beans[name];
               nodeNames.add(name);
               data.nodes.push({
                 id: name,
